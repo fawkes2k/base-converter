@@ -8,7 +8,7 @@ class BaseConverter:
         :param base_digits: Digits used in that positional numeral system
         :return: A conversion object
         """
-        if len(base) < 2:
+        if len(base_digits) < 2:
             raise IncorrectArgumentException(f'Base is smaller than 2')
         self.base, self.digits = len(base_digits), base_digits
 
@@ -40,4 +40,3 @@ class BaseConverter:
         length, decimal = len(number), 0
         for index in range(length): decimal += self.digits.find(number[length - index - 1]) * self.base**index
         return decimal
- 
