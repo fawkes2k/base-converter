@@ -1,19 +1,16 @@
 class IncorrectArgumentException(RuntimeError): pass
 
 class BaseConverter:
-    def __init__(self, base: int, base_digits: str):
+    def __init__(self, base_digits: str):
         """
         Creates a conversion object between a positional numeral system in given base and decimal
 
-        :param base: A base of that positional numeral system in decimal (only natural numbers allowed)
         :param base_digits: Digits used in that positional numeral system
         :return: A conversion object
         """
-        if base <= 1 or base % 1 != 0:
-            raise IncorrectArgumentException(f'{base} is not a natural number or/and not greater than 1')
-        if len(base_digits) != base:
-            raise IncorrectArgumentException(f'The number of digits ({len(base_digits)}) and base ({base}) do not match')
-        self.base, self.digits = base, base_digits
+        if len(base) < 2:
+            raise IncorrectArgumentException(f'Base is smaller than 2')
+        self.base, self.digits = len(base_digits), base_digits
 
     def decimal_to_base(self, number: int) -> str:
         """
@@ -43,3 +40,4 @@ class BaseConverter:
         length, decimal = len(number), 0
         for index in range(length): decimal += self.digits.find(number[length - index - 1]) * self.base**index
         return decimal
+ 
